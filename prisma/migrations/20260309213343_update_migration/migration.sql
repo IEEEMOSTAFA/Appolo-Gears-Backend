@@ -1,0 +1,23 @@
+-- DropForeignKey
+ALTER TABLE "bids" DROP CONSTRAINT "bids_driverId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "bids" DROP CONSTRAINT "bids_rentId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "rents" DROP CONSTRAINT "rents_carId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "rents" DROP CONSTRAINT "rents_userId_fkey";
+
+-- AddForeignKey
+ALTER TABLE "rents" ADD CONSTRAINT "rents_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "rents" ADD CONSTRAINT "rents_carId_fkey" FOREIGN KEY ("carId") REFERENCES "cars"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "bids" ADD CONSTRAINT "bids_rentId_fkey" FOREIGN KEY ("rentId") REFERENCES "rents"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "bids" ADD CONSTRAINT "bids_driverId_fkey" FOREIGN KEY ("driverId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;

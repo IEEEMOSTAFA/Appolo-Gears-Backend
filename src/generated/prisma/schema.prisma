@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum Role {
+  admin
+  user
+  driver
+}
+
+enum FuelType {
+  Octane
+  Hybrid
+  Electric
+  Diesel
+  Petrol
+}
+
+enum Condition {
+  New
+  Used
+}
+
+enum RentStatus {
+  pending
+  ongoing
+  completed
+}
+
+enum BidStatus {
+  pending
+  accepted
+  rejected
+}
+
+// ─── Models ───────────────────────────────────────────────────────────────────
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  password     String?
+  role         Role     @default(user)
+  profileImage String?
+  rating       Float    @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  rents Rent[]
+  bids  Bid[]
+
+  @@map("users")
+}
+
+model Car {
+  id                String    @id @default(uuid())
+  name              String
+  brand             String
+  model             String
+  image             String
+  rating            Float     @default(0)
+  fuelType          FuelType
+  passengerCapacity Int
+  color             String
+  condition         Condition
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  rents Rent[]
+
+  @@map("cars")
+}
+
+model Rent {
+  id            String     @id @default(uuid())
+  rentStatus    RentStatus @default(pending)
+  startingPoint String
+  destination   String
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  userId String
+  carId  String
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  car  Car   @relation(fields: [carId], references: [id], onDelete: Cascade)
+  bids Bid[]
+
+  @@map("rents")
+}
+
+model Bid {
+  id             String    @id @default(uuid())
+  bidAmount      Float
+  bidStatus      BidStatus @default(pending)
+  driverLocation String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  rentId   String
+  driverId String
+
+  rent   Rent @relation(fields: [rentId], references: [id], onDelete: Cascade)
+  driver User @relation(fields: [driverId], references: [id], onDelete: Cascade)
+
+  @@map("bids")
+}
