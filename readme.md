@@ -12,9 +12,6 @@ User(user)
                               └── RentStatus → ongoing
                                       └── Trip শেষ → completed
 
-
-
-
  সহজ কথায় — User গাড়ি ভাড়া চায়, Driver দাম বলে, User accept করে trip শুরু হয়! 🚗💨     
  
   => Update migration: apollo-cli prisma migrate
