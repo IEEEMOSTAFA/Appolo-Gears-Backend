@@ -18,6 +18,7 @@ User(user)
 
 
 => Create Multiple file:  apollo-cli generate module User
+=> this readme file should more reafactor need
 
 =>apollo-cli generate module Bid
 =>apollo-cli generate module Payment
