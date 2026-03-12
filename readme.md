@@ -30,6 +30,5 @@ User(user)
 
 
 => Before run command
-
-
-=> npm install stripe 
+=> npm install stripe
+=> npx migrate prisma
