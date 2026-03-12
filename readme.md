@@ -2,7 +2,6 @@ Erd link: https://github.com/BayajidAlam/apollo-gears-backend/blob/main/docs/PRD
 
 full link: https://github.com/BayajidAlam/apollo-gears-backend
 
-
 ### 🔗 সম্পূর্ণ Flow একনজরে
 ```
 User(user)
