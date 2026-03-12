@@ -7,10 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 const {
   Decimal,
-  DbNull,
-  JsonNull,
-  AnyNull,
-  NullTypes,
+  objectEnumValues,
   makeStrictEnum,
   Public,
   getRuntime,
@@ -24,12 +21,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.4.2
- * Query Engine version: 94a226be1cf2967af2541cca5529f0f7ba866919
+ * Prisma Client JS version: 6.19.2
+ * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
  */
 Prisma.prismaVersion = {
-  client: "7.4.2",
-  engine: "94a226be1cf2967af2541cca5529f0f7ba866919"
+  client: "6.19.2",
+  engine: "c2990dca591cba766e3b7ef5d9e8a84796e47ab7"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -101,11 +98,15 @@ In case this error is unexpected for you, please report it in https://pris.ly/pr
 /**
  * Shorthand utilities for JSON filtering
  */
-Prisma.DbNull = DbNull
-Prisma.JsonNull = JsonNull
-Prisma.AnyNull = AnyNull
+Prisma.DbNull = objectEnumValues.instances.DbNull
+Prisma.JsonNull = objectEnumValues.instances.JsonNull
+Prisma.AnyNull = objectEnumValues.instances.AnyNull
 
-Prisma.NullTypes = NullTypes
+Prisma.NullTypes = {
+  DbNull: objectEnumValues.classes.DbNull,
+  JsonNull: objectEnumValues.classes.JsonNull,
+  AnyNull: objectEnumValues.classes.AnyNull
+}
 
 
 
@@ -143,6 +144,7 @@ exports.Prisma.CarScalarFieldEnum = {
   passengerCapacity: 'passengerCapacity',
   color: 'color',
   condition: 'condition',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -150,6 +152,7 @@ exports.Prisma.CarScalarFieldEnum = {
 exports.Prisma.RentScalarFieldEnum = {
   id: 'id',
   rentStatus: 'rentStatus',
+  paymentStatus: 'paymentStatus',
   startingPoint: 'startingPoint',
   destination: 'destination',
   createdAt: 'createdAt',
@@ -167,6 +170,18 @@ exports.Prisma.BidScalarFieldEnum = {
   updatedAt: 'updatedAt',
   rentId: 'rentId',
   driverId: 'driverId'
+};
+
+exports.Prisma.PaymentScalarFieldEnum = {
+  id: 'id',
+  amount: 'amount',
+  transactionId: 'transactionId',
+  paymentGateway: 'paymentGateway',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  rentId: 'rentId',
+  userId: 'userId'
 };
 
 exports.Prisma.SortOrder = {
@@ -208,6 +223,12 @@ exports.RentStatus = exports.$Enums.RentStatus = {
   completed: 'completed'
 };
 
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  pending: 'pending',
+  paid: 'paid',
+  failed: 'failed'
+};
+
 exports.BidStatus = exports.$Enums.BidStatus = {
   pending: 'pending',
   accepted: 'accepted',
@@ -218,7 +239,8 @@ exports.Prisma.ModelName = {
   User: 'User',
   Car: 'Car',
   Rent: 'Rent',
-  Bid: 'Bid'
+  Bid: 'Bid',
+  Payment: 'Payment'
 };
 
 /**

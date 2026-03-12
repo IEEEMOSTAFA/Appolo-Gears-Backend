@@ -3,6 +3,7 @@ import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
 import AppError from '../errors/AppError';
 import handlePrismaError from '../errors/handlePrismaError';
+import handlePrismaValidationError from '../errors/handlePrismaValidationError';
 import handleZodError, { ZodValidationError } from '../errors/handleZodError';
 import { Prisma } from '../generated/prisma/client';
 
@@ -45,7 +46,19 @@ const globalErrorHandler: ErrorRequestHandler = (
     return;
   }
 
-  // ── 3. Operational AppErrors (thrown explicitly in the app) ───────────────
+  // ── 3. Prisma validation errors ──────────────────────────────────────────
+  if (err instanceof Prisma.PrismaClientValidationError) {
+    const errorResponse = handlePrismaValidationError(err);
+    res.status(errorResponse.statusCode).json({
+      success: false,
+      message: errorResponse.message,
+      errorSources: errorResponse.errorSources,
+      error: err,
+    });
+    return;
+  }
+
+  // ── 4. Operational AppErrors (thrown explicitly in the app) ───────────────
   if (err instanceof AppError) {
     res.status(err.statusCode).json({
       success: false,
@@ -60,7 +73,7 @@ const globalErrorHandler: ErrorRequestHandler = (
     return;
   }
 
-  // ── 4. Unhandled / unknown errors ─────────────────────────────────────────
+  // ── 5. Unhandled / unknown errors ─────────────────────────────────────────
   const unknownErr = err as Error;
   res.status(500).json({
     success: false,

@@ -11,6 +11,22 @@ export interface TCar {
   passengerCapacity: number;
   color: string;
   condition: Condition;
+  isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type TCarFilters = {
+  searchTerm?: string;
+  fuelType?: FuelType;
+  condition?: Condition;
+  color?: string;
+  brand?: string;
+};
+
+export type TCarQueryOptions = {
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+};

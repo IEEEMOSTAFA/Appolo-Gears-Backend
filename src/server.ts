@@ -50,7 +50,7 @@ async function main() {
     // ─── SIGINT (Ctrl+C in terminal) ──────────────────────────────────
     // যেমন: Development-এ Ctrl+C চাপলে
     process.on('SIGINT', async () => {
-      console.log('\n🛑 SIGINT received (Ctrl+C). Shutting down gracefully...');
+      console.log('\n SIGINT received (Ctrl+C). Shutting down gracefully...');
       server.close(async () => {
         await prisma.$disconnect();
         console.log('🔌 Database disconnected');
