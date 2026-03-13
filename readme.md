@@ -27,3 +27,4 @@ User(user)
 => Before run command
 => npm install stripe
 => npx migrate prisma
+=> new commit must registered
