@@ -24,7 +24,6 @@ User(user)
 => Admin Run:: npm run seed
 => @mcp:context: 7
 
-
 => Before run command
 => npm install stripe
 => npx migrate prisma
