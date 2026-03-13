@@ -14,7 +14,7 @@ User(user)
  
   => Update migration: apollo-cli prisma migrate
 
-
+=> document should properly follow
 => Create Multiple file:  apollo-cli generate module User
 => this readme file should more reafactor need
 
